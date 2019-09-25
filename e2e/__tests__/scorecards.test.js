@@ -1,7 +1,7 @@
 const request = require('../request');
 const db = require('../db');
 
-describe.skip('scorecards api', () => {
+describe('scorecards api', () => {
 
   beforeEach(() => db.dropCollection('scorecards'));
 
