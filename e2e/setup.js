@@ -3,7 +3,7 @@ const TEST_DB_URL = 'mongodb://localhost:27017/famous-cats-test';
 const mongoose = require('mongoose');
 
 beforeAll(() => {
-  connect(TEST_DB_URL, { log: false });
+  return connect(TEST_DB_URL, { log: false });
 });
 
 afterAll(() => {
