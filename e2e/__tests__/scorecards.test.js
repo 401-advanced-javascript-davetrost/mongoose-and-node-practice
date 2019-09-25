@@ -25,7 +25,7 @@ describe('scorecards api', () => {
       .then(({ body }) => body);   // same as res => res.body
   }
 
-  it('posts valid data to /api/scorecards', () => {
+  it('posts valid data', () => {
     return postScorecard(scorecard1)
       .then(scorecard => {
         expect(scorecard).toEqual({
@@ -33,6 +33,16 @@ describe('scorecards api', () => {
           _id: expect.any(String),
           ...scorecard1
         });
+      });
+  });
+
+  it('gets a scorecard by id', () => {
+    return postScorecard(scorecard1)
+      .then(scorecard => {
+        return request
+          .get(`/api/scorecards/${scorecard._id}`)
+          .expect(200)
+          .then(({ body }) => expect(body).toEqual(scorecard));
       });
   });
 
