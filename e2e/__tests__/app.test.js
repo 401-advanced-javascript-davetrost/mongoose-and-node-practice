@@ -1,6 +1,7 @@
-const request = require('../request');
+const request = require('../request');  // DRY formula to call supertest  
 
-describe('core app api', () => {
+describe('basic server functionality', () => {
+
   it('is alive', () => {
     return request
       .get('/hello')
@@ -10,16 +11,16 @@ describe('core app api', () => {
       });
   });
 
-  it('returns 404 on non-api bad path', () => {
+  it('returns 404 for non-api paths that are unsupported', () => {
     return request
-      .get('/bad-path')
+      .get('/somethingbad')
       .expect(404)
       .expect('Content-Type', /text/);
   });
 
-  it('returns application/json 404 on bad api path', () => {
+  it('returns unique 404 code for bad api paths', () => {
     return request
-      .post('/api/bad-path')
+      .get('/api/badbadbad')
       .expect(404)
       .expect('Content-Type', /json/)
       .then(res => {
