@@ -46,6 +46,18 @@ describe('scorecards api', () => {
       });
   });
 
+  it('gets all scorecards', () => {
+    return Promise.all([postScorecard(scorecard1), postScorecard(scorecard1), postScorecard(scorecard1)])
+      .then(() => {
+        return request
+          .get(`/api/scorecards`)
+          .expect(200);
+      })
+      .then(({ body }) => {
+        expect(body.length).toBe(3);
+      });
+  });
+
 
 
 });
