@@ -1,4 +1,4 @@
 # mongoose-and-node-practice
 
-## LAB-06
+## LAB-08
 
