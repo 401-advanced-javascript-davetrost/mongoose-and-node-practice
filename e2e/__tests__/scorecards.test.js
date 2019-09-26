@@ -67,15 +67,23 @@ describe('scorecards api', () => {
             score: 47,   /// was 48
             holeScores: [3, 2, 3, 3, 2, 3, 2, 3, 1, 4, 2, 3, 3, 2, 2, 4, 3, 2],   /// hole 18 had a score of 3
           })
-          .expect(200)
-          .then(({ body }) => {
-            scorecard.score--;
-            scorecard.holeScores[17]--;
-            return expect(body).toEqual(scorecard);
-          });
+          .expect(200);
+      })
+      .then(({ body }) => {
+        expect(body.score).toEqual(47);
+        expect(body.holeScores[17]).toEqual(2);
       });
   });
   
+  it('deletes a scorecard by id', () => {
+    return postScorecard(scorecard1)
+      .then(scorecard => {
+        return request
+          .delete(`/api/scorecards/${scorecard._id}`)
+          .expect(200);
+      });
+  });
+
   
 
 
