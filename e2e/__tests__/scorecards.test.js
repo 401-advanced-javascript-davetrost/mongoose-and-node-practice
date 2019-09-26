@@ -58,6 +58,25 @@ describe('scorecards api', () => {
       });
   });
 
+  it('modifies a scorecard', () => {
+    return postScorecard(scorecard1)
+      .then(scorecard => {
+        return request
+          .put(`/api/scorecards/${scorecard._id}`)
+          .send({
+            score: 47,   /// was 48
+            holeScores: [3, 2, 3, 3, 2, 3, 2, 3, 1, 4, 2, 3, 3, 2, 2, 4, 3, 2],   /// hole 18 had a score of 3
+          })
+          .expect(200)
+          .then(({ body }) => {
+            scorecard.score--;
+            scorecard.holeScores[17]--;
+            return expect(body).toEqual(scorecard);
+          });
+      });
+  });
+  
+  
 
 
 });
